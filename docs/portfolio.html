@@ -105,6 +105,34 @@ week's dominant mood archetype using XGBoost + SHAP.`,
         archLink: "pharmawatch-architecture.html",
         tags:  ["Python", "Scala", "Spark", "BigQuery", "Snowflake", "LightGBM", "LangChain", "Groq", "dbt", "Airflow"],
       },
+      {
+        name:        "CHAN-C",
+        badge:       "In Production",
+        description: `A WhatsApp-first, commission-based marketplace connecting vetted informal construction workers — plumbers, electricians, carpenters, masons — with companies and homeowners in Guatemala City. Formalizes an informal labor market through reputation vetting, escrow-protected payments, and SAT-compliant electronic invoicing (FEL). Sole technical lead across architecture, backend, frontend, WhatsApp integration, and the mobile app.`,
+        highlights: [
+          "Conversational commerce over WhatsApp backed by a stateful deal-flow engine",
+          "Tiered commission engine + four-rung worker reputation ladder with escrow release",
+          "AI intake & daily progress reports — Gemini, Claude, Google Vision OCR",
+          "Vendor-agnostic messaging/invoicing seams + deterministic simulation harness",
+        ],
+        link:  "#",
+        label: "Private",
+        tags:  ["Python", "FastAPI", "Next.js", "React Native", "Supabase", "Twilio API", "Gemini", "Claude", "Google Cloud", "FEL"],
+      },
+      {
+        name:        "Más Watts",
+        badge:       "In Progress",
+        description: `A mobile music-guessing party game in the spirit of Hitster — mechanically redesigned for party play, with a curated Guatemalan & Latin American catalog as its core differentiator. QR-coded physical cards trigger audio playback on a host phone; offline-first, single-device, no backend. Targeting Google Play, Guatemala first with LATAM expansion planned. Solo technical build (co-founder Cecilia Loesener leads art & design).`,
+        highlights: [
+          "QR-card scanning → 1s / 3s / 5s snippet bidding tiers from iTunes previews",
+          "Real-time audio modifiers — speed, pitch-shift, low-pass — applied live, never persisted",
+          "Offline-first, zero-backend: ~200–500 song catalog bundled as SQLite/JSON",
+          "Spanish TTS 'DJ' announcer + compliance-first design on fully legal audio sources",
+        ],
+        link:  "#",
+        label: "Private",
+        tags:  ["React Native", "Expo", "expo-av", "iTunes API", "SQLite", "expo-speech", "QR Scanning", "Songlink/Odesli", "Librosa", "Android"],
+      },
     ],
 
   };
@@ -527,7 +555,7 @@ week's dominant mood archetype using XGBoost + SHAP.`,
   // Work
   const wl = $("work-list");
   PROFILE.projects.forEach((p, i) => {
-    const isLive = p.badge === "Live";
+    const isLive = p.badge === "Live" || p.badge === "In Production";
     const badgeCls = isLive ? "badge-live" : "badge-wip";
     const live = p.link && p.link !== "#";
     const primary = live
