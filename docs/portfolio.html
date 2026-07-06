@@ -118,13 +118,14 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --paper:   #ece4d3;
-      --paper-2: #e3d9c2;
-      --card:    #f3ecdc;
-      --ink:     #16120c;
-      --ink-2:   #4b4437;
-      --accent:  #ff3d0d;   /* riso vermilion */
-      --blue:    #1731d8;   /* riso blue      */
+      --paper:   #dcecea;
+      --paper-2: #cbe2df;
+      --card:    #e8f3f1;
+      --ink:     #0b1f1e;
+      --ink-2:   #3c5a58;
+      --accent:  #0e7f7a;   /* teal            */
+      --aqua:    #1ec9bf;   /* bright turquoise */
+      --blue:    #1c5fd0;   /* azure link      */
       --disp:    'Fraunces', Georgia, serif;
       --sans:    'Space Grotesk', system-ui, sans-serif;
       --mono:    'Space Mono', ui-monospace, monospace;
@@ -224,7 +225,7 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     .eq span { width: 9px; background: var(--ink); display: block;
       animation: eqbar 1.1s ease-in-out infinite; transform-origin: bottom; }
     .eq span:nth-child(3n) { background: var(--accent); }
-    .eq span:nth-child(4n) { background: var(--blue); }
+    .eq span:nth-child(4n) { background: var(--aqua); }
     @keyframes eqbar { 0%,100%{ transform: scaleY(.18) } 50%{ transform: scaleY(1) } }
 
     .hero-cta { display: flex; gap: .9rem; flex-wrap: wrap; margin-top: 2.4rem; }
@@ -244,11 +245,11 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     .hero-photo, .hero-photo-ph {
       width: clamp(160px, 20vw, 230px); height: clamp(200px, 25vw, 290px);
       object-fit: cover; object-position: center top; display: block;
-      border: var(--edge); filter: grayscale(1) contrast(1.05);
+      border: var(--edge); filter: saturate(1.04) contrast(1.02);
       box-shadow: 10px 10px 0 var(--accent);
-      transition: filter .3s ease, box-shadow .2s, transform .2s;
+      transition: box-shadow .2s, transform .2s;
     }
-    .hero-photo:hover { filter: grayscale(0); box-shadow: 6px 6px 0 var(--accent); transform: translate(2px,2px); }
+    .hero-photo:hover { box-shadow: 6px 6px 0 var(--aqua); transform: translate(2px,2px); }
     .hero-photo-ph {
       display: flex; align-items: center; justify-content: center;
       background: var(--card); font-family: var(--disp); font-weight: 900;
@@ -263,7 +264,7 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     .ticker:hover .ticker-track { animation-play-state: paused; }
     .ticker-track span { font-family: var(--mono); font-size: .95rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: .05em; padding: 0 1.1rem; }
-    .ticker-track span.d { color: var(--accent); }
+    .ticker-track span.d { color: var(--aqua); }
     @keyframes scroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
     /* ─────────── SECTION SHELL ─────────── */
