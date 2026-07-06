@@ -17,7 +17,7 @@ work_pool:
 pull:
 - prefect.deployments.steps.git_clone:
     id: git_clone
-    repository: https://github.com/tonymelendez77/soundpulse-pipeline.git
+    repository: https://github.com/oscar-melendez77/soundpulse-pipeline.git
     branch: main
 - prefect.deployments.steps.run_shell_script:
     id: install_deps

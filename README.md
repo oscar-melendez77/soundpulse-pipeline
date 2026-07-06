@@ -18,7 +18,7 @@ Data pipeline that correlates world news sentiment with music chart trends. Inge
 ## Setup
 
 ```bash
-git clone https://github.com/tonymelendez77/soundpulse-pipeline.git
+git clone https://github.com/oscar-melendez77/soundpulse-pipeline.git
 cd soundpulse-pipeline
 pip install -r requirements_pipeline.txt
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
