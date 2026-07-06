@@ -212,11 +212,12 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     .hero-role {
       font-family: var(--mono); font-size: clamp(.8rem, 1.4vw, .95rem);
       max-width: 40ch; margin-top: 1.8rem; color: var(--ink-2); line-height: 1.6;
+      text-align: justify;
     }
     .hero-tagline {
       font-family: var(--disp); font-style: italic; font-weight: 400;
       font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.25;
-      max-width: 22ch; letter-spacing: -.01em;
+      max-width: 24ch; letter-spacing: -.01em; text-align: justify;
     }
     .hero-tagline .mark { background: var(--accent); color: var(--paper); padding: 0 .18em; }
 
@@ -279,7 +280,7 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     /* ─────────── ABOUT ─────────── */
     .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3.5rem; align-items: start; }
     .about-text { font-family: var(--disp); font-weight: 400; font-size: clamp(1.15rem,2vw,1.5rem);
-      line-height: 1.5; letter-spacing: -.01em; }
+      line-height: 1.5; letter-spacing: -.01em; text-align: justify; hyphens: auto; }
     .about-text::first-letter { font-weight: 900; font-size: 3.4em; float: left; line-height: .8;
       padding: .05em .12em 0 0; color: var(--accent); }
     .card {
@@ -329,7 +330,7 @@ week's dominant mood archetype using XGBoost + SHAP.`,
     .badge-wip  { background: var(--card); color: var(--ink); }
     .work-name { font-family: var(--disp); font-weight: 900; font-size: clamp(1.7rem,4vw,2.8rem);
       line-height: 1; letter-spacing: -.025em; margin-bottom: 1rem; }
-    .work-desc { font-size: 1.02rem; color: var(--ink-2); max-width: 62ch; margin-bottom: 1.4rem; white-space: pre-line; }
+    .work-desc { font-size: 1.02rem; color: var(--ink-2); max-width: 62ch; margin-bottom: 1.4rem; text-align: justify; hyphens: auto; }
     .work-hl { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem 1.6rem;
       margin-bottom: 1.6rem; }
     .work-hl li { font-size: .9rem; display: flex; gap: .6rem; align-items: flex-start; }
