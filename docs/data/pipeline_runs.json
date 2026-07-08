@@ -1,5 +1,16 @@
 [
   {
+    "run_id": "bae58726",
+    "started_at": "2026-07-08T04:54:29.001908+00:00",
+    "completed_at": "2026-07-08T04:59:57.286453+00:00",
+    "status": "failed",
+    "duration_seconds": 328,
+    "modules_completed": [],
+    "tasks_ok": 0,
+    "tasks_total": 16,
+    "run_url": "https://app.prefect.cloud/"
+  },
+  {
     "run_id": "c7ec2064",
     "started_at": "2026-07-07T05:53:18.215287+00:00",
     "completed_at": "2026-07-07T05:58:44.124400+00:00",
