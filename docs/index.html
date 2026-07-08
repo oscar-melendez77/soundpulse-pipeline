@@ -11,8 +11,8 @@
   <style>
     :root {
       --bg:        #0a0a0f;
-      --surface:   #101018;
-      --surface-2: #18181f;
+      --surface:   transparent;
+      --surface-2: transparent;
       --card-2:    #1a1a24;
       --border:    #252530;
       --border-2:  #35354a;
@@ -41,6 +41,15 @@
       line-height:1.6;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* GLOBAL WHITE GRID — fixed, behind all content and graphs */
+    body::before {
+      content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size:44px 44px;
     }
 
     /* NAV */
@@ -81,11 +90,7 @@
     }
     .hero::before {
       content:''; position:absolute; inset:0;
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size:44px 44px;
-      opacity:.4;
+      background:transparent;
       pointer-events:none;
     }
     .hero .badge {
@@ -469,7 +474,7 @@
 </div>
 
 <!-- PROCESS SECTION -->
-<div id="process" style="background:#0a0a0f; border-top: 2.5px solid #e0ddd5;">
+<div id="process" style="background:transparent; border-top: 2.5px solid #35354a;">
 
   <!-- LIVE STATS BAR -->
   <div style="border-bottom:1px solid #35354a; padding:28px 24px;">
