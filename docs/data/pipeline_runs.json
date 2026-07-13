@@ -1,5 +1,20 @@
 [
   {
+    "run_id": "3dcd9092",
+    "started_at": "2026-07-13T01:13:08.802104+00:00",
+    "completed_at": "2026-07-13T01:16:11.595674+00:00",
+    "status": "failed",
+    "duration_seconds": 182,
+    "modules_completed": [
+      "M1-news",
+      "M1-reddit",
+      "M1-youtube"
+    ],
+    "tasks_ok": 3,
+    "tasks_total": 16,
+    "run_url": "https://app.prefect.cloud/"
+  },
+  {
     "run_id": "d8a59252",
     "started_at": "2026-07-12T05:00:59.034017+00:00",
     "completed_at": "2026-07-12T05:06:30.031190+00:00",
