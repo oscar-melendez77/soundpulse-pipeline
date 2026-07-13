@@ -1,5 +1,24 @@
 [
   {
+    "run_id": "6a94f7fd",
+    "started_at": "2026-07-13T01:28:36.097383+00:00",
+    "completed_at": "2026-07-13T01:33:55.746077+00:00",
+    "status": "failed",
+    "duration_seconds": 319,
+    "modules_completed": [
+      "M1-news",
+      "M1-reddit",
+      "M1-youtube",
+      "M3-itunes",
+      "M4-lastfm",
+      "M5-billboard",
+      "M6-librosa"
+    ],
+    "tasks_ok": 7,
+    "tasks_total": 16,
+    "run_url": "https://app.prefect.cloud/"
+  },
+  {
     "run_id": "3dcd9092",
     "started_at": "2026-07-13T01:13:08.802104+00:00",
     "completed_at": "2026-07-13T01:16:11.595674+00:00",
