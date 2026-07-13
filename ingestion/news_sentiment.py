@@ -10,7 +10,7 @@ from loguru import logger
 from transformers import pipeline
 
 # Config
-PROJECT   = "soundpulse-production"
+PROJECT   = "soundpulse-502212"
 DATASET   = "music_analytics"
 SRC_TABLE = f"{PROJECT}.{DATASET}.news_historical"
 DST_TABLE = f"{PROJECT}.{DATASET}.news_sentiment"

@@ -17,9 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
 
+    permissions:
+      id-token: write      # required for Workload Identity Federation (keyless GCP auth)
+      contents: write
+
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
       PYTHONUNBUFFERED: "1"
+      GOOGLE_CLOUD_PROJECT: soundpulse-502212
       PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
       PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -46,9 +50,12 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      # 2. GCP credentials
-      - name: Write GCP credentials
-        run: echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+      # 2. Authenticate to Google Cloud — keyless via Workload Identity Federation
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/334832649173/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "pipeline-worker@soundpulse-502212.iam.gserviceaccount.com"
 
       # 3. System deps (ffmpeg for librosa/pydub audio processing)
       - name: Install system dependencies
@@ -72,10 +79,9 @@ jobs:
             outputs:
               prod:
                 type: bigquery
-                method: service-account
-                project: soundpulse-production
+                method: oauth
+                project: soundpulse-502212
                 dataset: dbt_transformed
-                keyfile: /tmp/gcp-key.json
                 threads: 4
                 timeout_seconds: 300
                 location: US

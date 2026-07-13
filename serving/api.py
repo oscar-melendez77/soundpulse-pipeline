@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
-PROJECT = "soundpulse-production"
+PROJECT = "soundpulse-502212"
 DATASET = f"{PROJECT}.dbt_transformed"
 RAW = f"{PROJECT}.music_analytics"
 

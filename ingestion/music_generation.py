@@ -17,9 +17,9 @@ from loguru import logger
 from pinecone import Pinecone
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
 
-PROJECT = "soundpulse-production"
+PROJECT = "soundpulse-502212"
 DATASET = "music_analytics"
-BUCKET_NAME = "soundpulse-prod-raw-lake"
+BUCKET_NAME = "soundpulse-502212-raw-lake"
 GCS_PREFIX = "generated"
 PRED_TABLE = f"{PROJECT}.{DATASET}.ml_predictions"
 GEN_TABLE = f"{PROJECT}.{DATASET}.generated_tracks"

@@ -17,9 +17,9 @@ from bs4 import BeautifulSoup
 
 load_dotenv()
 
-PROJECT          = "soundpulse-production"
+PROJECT          = "soundpulse-502212"
 DATASET          = "music_analytics"
-BUCKET           = "soundpulse-prod-raw-lake"
+BUCKET           = "soundpulse-502212-raw-lake"
 BASE_DIR         = Path(__file__).parent.parent
 DAYS_BACK_START  = 365   # max news history to fetch (smart resume skips already-collected)
 DAYS_BACK_END    = 8

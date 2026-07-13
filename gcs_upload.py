@@ -10,11 +10,11 @@ try:
     from prefect.blocks.system import Secret
     from prefect_gcp import GcpCredentials
     gcp_credentials = GcpCredentials.load("gcp-credentials")
-    client = storage.Client(credentials=gcp_credentials.get_credentials_from_service_account(), project='soundpulse-production')
+    client = storage.Client(credentials=gcp_credentials.get_credentials_from_service_account(), project='soundpulse-502212')
 except:
-    client = storage.Client(project='soundpulse-production')
+    client = storage.Client(project='soundpulse-502212')
 
-bucket = client.bucket('soundpulse-prod-raw-lake')
+bucket = client.bucket('soundpulse-502212-raw-lake')
 
 date_partition = datetime.now().strftime('%Y/%m/%d')
 

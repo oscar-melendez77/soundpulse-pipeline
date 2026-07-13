@@ -6,7 +6,7 @@ from datetime import date, datetime, timedelta, timezone
 from google.cloud import bigquery
 from loguru import logger
 
-PROJECT     = "soundpulse-production"
+PROJECT     = "soundpulse-502212"
 DATASET     = "music_analytics"
 PRED_TABLE  = f"{PROJECT}.{DATASET}.ml_predictions"
 MOOD_TABLE  = f"{PROJECT}.{DATASET}.audio_mood_weekly"

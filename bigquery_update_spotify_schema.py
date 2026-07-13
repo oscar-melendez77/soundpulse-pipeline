@@ -1,11 +1,11 @@
 """
 Update spotify_tracks table to add 18 new audio feature columns
-CORRECT PROJECT: soundpulse-production
+CORRECT PROJECT: soundpulse-502212
 """
 from google.cloud import bigquery
 
 # CORRECT PROJECT
-client = bigquery.Client(project='soundpulse-production')
+client = bigquery.Client(project='soundpulse-502212')
 table_ref = client.dataset('music_analytics').table('spotify_tracks')
 
 # Get current table

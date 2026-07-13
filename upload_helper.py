@@ -24,8 +24,8 @@ def upload_to_gcs(df, source_name='spotify'):
     """
     
     # GCS configuration
-    PROJECT_ID = 'soundpulse-490820'
-    BUCKET_NAME = 'soundpulse-prod-raw-lake'  
+    PROJECT_ID = 'soundpulse-502212'
+    BUCKET_NAME = 'soundpulse-502212-raw-lake'  
     
     # Generate file path with timestamp
     now = datetime.utcnow()

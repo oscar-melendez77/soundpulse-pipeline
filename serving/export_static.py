@@ -14,7 +14,7 @@ from google.cloud import bigquery, storage
 from google.oauth2 import service_account
 from loguru import logger
 
-PROJECT = "soundpulse-production"
+PROJECT = "soundpulse-502212"
 
 
 def _make_clients():
@@ -30,7 +30,7 @@ def _make_clients():
 
 DATASET = f"{PROJECT}.dbt_transformed"
 RAW = f"{PROJECT}.music_analytics"
-GCS_BUCKET = "soundpulse-prod-raw-lake"
+GCS_BUCKET = "soundpulse-502212-raw-lake"
 
 DOCS = Path(__file__).parent.parent / "docs"
 DATA_DIR = DOCS / "data"

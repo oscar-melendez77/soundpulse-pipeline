@@ -3,16 +3,9 @@ from datetime import datetime
 import json
 import pandas as pd
 
-def upload_to_gcs(data, source_name, bucket_name='soundpulse-prod-raw-lake'):
-    try:
-        from prefect_gcp import GcpCredentials
-        gcp_credentials = GcpCredentials.load("gcp-credentials")
-        client = storage.Client(
-            credentials=gcp_credentials.get_credentials_from_service_account(),
-            project='soundpulse-production'
-        )
-    except Exception:
-        client = storage.Client(project='soundpulse-production')
+def upload_to_gcs(data, source_name, bucket_name='soundpulse-502212-raw-lake'):
+    # Keyless auth: use Application Default Credentials (Workload Identity Federation)
+    client = storage.Client(project='soundpulse-502212')
     
     bucket = client.bucket(bucket_name)
     date_partition = datetime.now().strftime('%Y/%m/%d')
