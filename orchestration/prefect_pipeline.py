@@ -192,6 +192,7 @@ def soundpulse_daily():
     started_at  = datetime.now(timezone.utc)
     t0          = time.time()
     modules_ok  = []
+    modules_failed = []
     tasks_ok    = 0
     tasks_total = len(MODULE_NAMES)
 
@@ -224,10 +225,17 @@ def soundpulse_daily():
         lastfm_f    = ingest_lastfm.submit()
         billboard_f = ingest_billboard.submit()
         librosa_f   = ingest_librosa.submit()
+        # Ingestion sources are independent. A single source failing (e.g. a flaky
+        # third-party API or expired Spotify creds) must NOT abort the whole daily
+        # run — log it and carry on so dbt / ML / export still produce fresh data.
         for f, n in [(news_f,"M1-news"),(reddit_f,"M1-reddit"),(youtube_f,"M1-youtube"),
                      (spotify_f,"M2-spotify"),(itunes_f,"M3-itunes"),(lastfm_f,"M4-lastfm"),
                      (billboard_f,"M5-billboard"),(librosa_f,"M6-librosa")]:
-            f.result(); _done(n)
+            try:
+                f.result(); _done(n)
+            except Exception as e:
+                print(f"[{n}] ingestion FAILED — non-fatal, skipping this source: {e}")
+                modules_failed.append(n)
 
         # Layer 2: dbt
         run_dbt.submit().result(); _done("M7-dbt")
