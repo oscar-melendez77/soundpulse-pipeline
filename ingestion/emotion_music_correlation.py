@@ -11,7 +11,7 @@ from google.cloud import bigquery
 from loguru import logger
 from scipy.stats import pearsonr
 
-PROJECT = "soundpulse-502212"
+PROJECT = "soundpulse-production"
 DATASET = "music_analytics"
 NEWS_AGG = f"{PROJECT}.{DATASET}.news_sentiment_weekly"
 AUDIO_REGIONAL = f"{PROJECT}.{DATASET}.audio_mood_regional"

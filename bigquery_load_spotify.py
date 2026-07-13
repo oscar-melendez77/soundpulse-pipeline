@@ -3,11 +3,11 @@ Load latest Spotify data with 30 audio features to BigQuery
 """
 from google.cloud import bigquery
 
-client = bigquery.Client(project='soundpulse-502212')
+client = bigquery.Client(project='soundpulse-production')
 table_ref = client.dataset('music_analytics').table('spotify_tracks')
 
 # Load the LATEST file with correct data types
-gcs_uri = 'gs://soundpulse-502212-raw-lake/spotify/2026/03/28/spotify_20260328_205013.jsonl'
+gcs_uri = 'gs://soundpulse-prod-raw-lake/spotify/2026/03/28/spotify_20260328_205013.jsonl'
 
 job_config = bigquery.LoadJobConfig(
     source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,

@@ -13,7 +13,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 
-PROJECT = "soundpulse-502212"
+PROJECT = "soundpulse-production"
 DATASET = "music_analytics"
 SRC_TABLE = f"{PROJECT}.{DATASET}.trending_historical"
 DST_TABLE = f"{PROJECT}.{DATASET}.audio_mood_clusters"

@@ -20,7 +20,7 @@ from youtube_ingestion import run_youtube_ingestion
 from reddit_ingestion import run_reddit_ingestion
 from news_ingestion import run_news_ingestion
 
-PROJECT = "soundpulse-502212"
+PROJECT = "soundpulse-production"
 DATASET = "music_analytics"
 
 TEST_MODE = True
@@ -31,7 +31,7 @@ CROSS_PLATFORM_MIN   = 2
 
 BASE_DIR        = Path(__file__).parent.parent
 DIAGNOSTIC_FILE = BASE_DIR / "diagnostic_matching_results.json"
-BUCKET_NAME     = "soundpulse-502212-raw-lake"
+BUCKET_NAME     = "soundpulse-prod-raw-lake"
 
 
 

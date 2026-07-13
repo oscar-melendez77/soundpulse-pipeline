@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 import os
 
 # Config
-PROJECT        = "soundpulse-502212"
+PROJECT        = "soundpulse-production"
 DATASET        = "music_analytics"
 PINECONE_INDEX = "soundpulse-tracks"
 SCALER_PATH    = Path(__file__).parent / "scaler_params.json"

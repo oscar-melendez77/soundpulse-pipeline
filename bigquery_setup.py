@@ -9,9 +9,9 @@ load_dotenv()
 try:
     from prefect_gcp import GcpCredentials
     gcp_credentials = GcpCredentials.load("gcp-credentials")
-    client = bigquery.Client(credentials=gcp_credentials.get_credentials_from_service_account(), project='soundpulse-502212')
+    client = bigquery.Client(credentials=gcp_credentials.get_credentials_from_service_account(), project='soundpulse-490820')
 except:
-    client = bigquery.Client(project='soundpulse-502212')
+    client = bigquery.Client(project='soundpulse-490820')
 
 dataset_id = 'music_analytics'
 

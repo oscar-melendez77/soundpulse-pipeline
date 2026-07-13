@@ -67,18 +67,27 @@ soundpulse_dbt:
   outputs:
     dev:
       type: bigquery
-      method: oauth
-      project: soundpulse-502212
+      method: service-account
+      project: soundpulse-production
       dataset: dbt_transformed
       threads: 4
       timeout_seconds: 300
       location: US
       priority: interactive
+      keyfile: /tmp/gcp-keyfile.json
 """
-
+    
     (dbt_dir / 'profiles.yml').write_text(profiles_content)
-    # Keyless auth: dbt uses Application Default Credentials (Workload Identity
-    # Federation sets GOOGLE_APPLICATION_CREDENTIALS in the runner environment).
+    
+    # Write service account key to temp file
+    try:
+        from prefect_gcp import GcpCredentials
+        gcp_credentials = GcpCredentials.load("gcp-credentials")
+        import json
+        keyfile_path = Path('/tmp/gcp-keyfile.json')
+        keyfile_path.write_text(json.dumps(gcp_credentials.service_account_info))
+    except:
+        pass
     
     result = subprocess.run(
         ["dbt", "run"],

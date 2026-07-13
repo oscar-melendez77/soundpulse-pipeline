@@ -3,10 +3,10 @@
 from google.cloud import bigquery, storage
 from datetime import datetime
 
-PROJECT = "soundpulse-502212"
+PROJECT = "soundpulse-production"
 DATASET = "music_analytics"
 TABLE = "trending_tracks"
-BUCKET = "soundpulse-502212-raw-lake"
+BUCKET = "soundpulse-prod-raw-lake"
 FULL_TABLE = f"{PROJECT}.{DATASET}.{TABLE}"
 
 SCHEMA = [

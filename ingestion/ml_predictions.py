@@ -16,7 +16,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import LabelEncoder
 
-PROJECT = "soundpulse-502212"
+PROJECT = "soundpulse-production"
 DATASET = "music_analytics"
 SRC_TABLE = f"{PROJECT}.{DATASET}.weekly_features"
 PRED_TABLE = f"{PROJECT}.{DATASET}.ml_predictions"
