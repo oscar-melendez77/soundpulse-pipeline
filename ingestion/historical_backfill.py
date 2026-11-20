@@ -562,6 +562,21 @@ def main():
             bq_client.create_table(bigquery.Table(full_table, schema=schema))
             logger.info(f"Created {full_table}")
 
+    # -- Self-heal: drop chart weeks that were saved with no audio at all
+    #    (e.g. ffmpeg missing on the runner) so smart-resume fetches them again.
+    try:
+        heal = bq_client.query(f"""
+            DELETE FROM `{PROJECT}.{DATASET}.trending_historical`
+            WHERE week_start IN (
+                SELECT week_start FROM `{PROJECT}.{DATASET}.trending_historical`
+                GROUP BY week_start HAVING COUNTIF(tempo IS NOT NULL) = 0
+            )
+        """)
+        heal.result()
+        print(f"  Self-heal: removed {heal.num_dml_affected_rows or 0} rows from weeks with no audio")
+    except Exception as e:
+        print(f"  Self-heal skipped: {e}")
+
     # -- Smart resume: load existing date/week sets, skip what's already in BQ ─
     print("\n[1b/6] Scanning existing data in BQ...")
     existing_news_dates  = get_existing_news_dates(bq_client)

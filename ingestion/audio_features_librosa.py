@@ -14,11 +14,19 @@ from multiprocessing import Pool, cpu_count
 from functools import partial
 
 # Configure pydub for ffmpeg
-AudioSegment.converter = "C:/ProgramData/chocolatey/lib/ffmpeg/tools/ffmpeg/bin/ffmpeg.exe"
-AudioSegment.ffprobe = "C:/ProgramData/chocolatey/lib/ffmpeg/tools/ffmpeg/bin/ffprobe.exe"
+import shutil
+from pathlib import Path
+
+# Configure pydub for ffmpeg: use whatever is on PATH (Linux runner, Mac),
+# fall back to the Chocolatey install on Windows.
+_WIN_FFMPEG = "C:/ProgramData/chocolatey/lib/ffmpeg/tools/ffmpeg/bin"
+_ffmpeg  = shutil.which("ffmpeg")  or (f"{_WIN_FFMPEG}/ffmpeg.exe"  if os.path.exists(f"{_WIN_FFMPEG}/ffmpeg.exe")  else "ffmpeg")
+_ffprobe = shutil.which("ffprobe") or (f"{_WIN_FFMPEG}/ffprobe.exe" if os.path.exists(f"{_WIN_FFMPEG}/ffprobe.exe") else "ffprobe")
+AudioSegment.converter = _ffmpeg
+AudioSegment.ffprobe   = _ffprobe
 
 # CACHE FILE LOCATION
-CACHE_FILE = "C:/Users/tony_/OneDrive/Documents/soundpulse-pulseiq/librosa_cache.json"
+CACHE_FILE = os.getenv("LIBROSA_CACHE_FILE", str(Path(__file__).resolve().parent.parent / "librosa_cache.json"))
 
 
 def load_cache():
