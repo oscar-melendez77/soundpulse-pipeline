@@ -22,12 +22,12 @@ DATASET          = "music_analytics"
 BUCKET           = "soundpulse-prod-raw-lake"
 BASE_DIR         = Path(__file__).parent.parent
 DAYS_BACK_START  = 365   # max news history to fetch (smart resume skips already-collected)
-DAYS_BACK_END    = 8
+DAYS_BACK_END    = 1
 WEEKS_BACK_START = 52    # max music history to fetch (smart resume skips already-collected)
-WEEKS_BACK_END   = 2
+WEEKS_BACK_END   = 0
 
-SKIP_NEWS  = False        # Guardian daily quota exhausted — re-run tomorrow with False
-SKIP_MUSIC = True       # set True to skip Billboard/iTunes/Librosa fetch
+SKIP_NEWS  = os.getenv("SKIP_NEWS", "false").lower() == "true"
+SKIP_MUSIC = os.getenv("SKIP_MUSIC", "false").lower() == "true"
 
 GUARDIAN_KEY = os.getenv("GUARDIAN_API_KEY")
 GUARDIAN_URL = "https://content.guardianapis.com/search"

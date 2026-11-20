@@ -100,6 +100,11 @@ def ingest_librosa():
     _run("ingestion/audio_features_librosa.py", "M6-librosa")
 
 
+@task(name="M6b · Historical refresh (news + charts)", retries=1, retry_delay_seconds=120)
+def run_historical_refresh():
+    _run("ingestion/historical_backfill.py", "M6b-historical")
+
+
 @task(name="M7–8 · dbt run + test", retries=1, retry_delay_seconds=120)
 def run_dbt():
     _run_dbt("run", "M7-dbt-run")
@@ -175,7 +180,7 @@ def _write_run_log(run_record: dict) -> None:
 
 MODULE_NAMES = [
     "M1-news", "M1-reddit", "M1-youtube",
-    "M2-spotify", "M3-itunes", "M4-lastfm", "M5-billboard", "M6-librosa",
+    "M2-spotify", "M3-itunes", "M4-lastfm", "M5-billboard", "M6-librosa", "M6b-historical",
     "M7-dbt", "M9-emotion", "M10-kmeans", "M11-correlation",
     "M12-xgboost", "M13a-pinecone", "M13b-musicgen", "M14-export",
 ]
@@ -236,6 +241,14 @@ def soundpulse_daily():
             except Exception as e:
                 print(f"[{n}] ingestion FAILED — non-fatal, skipping this source: {e}")
                 modules_failed.append(n)
+
+        # Layer 1b: append new days/weeks to news_historical + trending_historical.
+        # M9–M14 read these tables, so without this step the dashboard freezes.
+        try:
+            run_historical_refresh.submit().result(); _done("M6b-historical")
+        except Exception as e:
+            print(f"[M6b-historical] FAILED — non-fatal: {e}")
+            modules_failed.append("M6b-historical")
 
         # Layer 2: dbt
         run_dbt.submit().result(); _done("M7-dbt")
