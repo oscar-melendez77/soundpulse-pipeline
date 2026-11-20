@@ -107,5 +107,5 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: daily data refresh [$(date -u '+%Y-%m-%d %H:%M UTC')]"
           # Pull any commits pushed to main since this workflow started (e.g. manual fixes),
           # then push. --rebase keeps the history linear. || true so a clean repo doesn't fail.
-          git pull --rebase origin main || true
+          git pull --rebase --autostash origin main || true
           git push origin HEAD:main
