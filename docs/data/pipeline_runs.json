@@ -1,5 +1,35 @@
 [
   {
+    "run_id": "d6d9af61",
+    "started_at": "2026-11-20T19:55:07.452257+00:00",
+    "completed_at": "2026-11-20T21:19:15.214798+00:00",
+    "status": "success",
+    "duration_seconds": 5047,
+    "modules_completed": [
+      "M1-news",
+      "M1-reddit",
+      "M1-youtube",
+      "M2-spotify",
+      "M3-itunes",
+      "M4-lastfm",
+      "M5-billboard",
+      "M6-librosa",
+      "M6b-historical",
+      "M7-dbt",
+      "M9-emotion",
+      "M10-kmeans",
+      "M11-correlation",
+      "M12-xgboost",
+      "M12b-dbt-ml",
+      "M13a-pinecone",
+      "M13b-musicgen",
+      "M14-export"
+    ],
+    "tasks_ok": 18,
+    "tasks_total": 17,
+    "run_url": "https://app.prefect.cloud/"
+  },
+  {
     "run_id": "77390ba1",
     "started_at": "2026-11-20T18:08:27.904817+00:00",
     "completed_at": "2026-11-20T19:16:32.719580+00:00",
