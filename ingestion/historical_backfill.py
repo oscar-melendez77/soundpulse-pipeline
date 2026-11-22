@@ -28,6 +28,10 @@ WEEKS_BACK_END   = 0
 
 SKIP_NEWS  = os.getenv("SKIP_NEWS", "false").lower() == "true"
 SKIP_MUSIC = os.getenv("SKIP_MUSIC", "false").lower() == "true"
+# Caps per run so the daily job always finishes well inside the CI timeout.
+# A large gap is filled over several days instead of in one marathon run.
+MAX_NEWS_DAYS_PER_RUN   = int(os.getenv("MAX_NEWS_DAYS_PER_RUN", "30"))
+MAX_MUSIC_WEEKS_PER_RUN = int(os.getenv("MAX_MUSIC_WEEKS_PER_RUN", "4"))
 
 GUARDIAN_KEY = os.getenv("GUARDIAN_API_KEY")
 GUARDIAN_URL = "https://content.guardianapis.com/search"
@@ -220,18 +224,24 @@ def run_news_backfill(existing_dates: set) -> list[dict]:
     logger.info(f"Starting Guardian news backfill: scanning {total_days} days, skipping already-collected")
     all_articles = []
     batch        = []
+    new_days     = 0
 
-    for day_num in range(DAYS_BACK_START, DAYS_BACK_END, -1):
+    # Newest first, so the dashboard catches up from the present backwards.
+    for day_num in range(DAYS_BACK_END + 1, DAYS_BACK_START + 1):
         date_dt  = datetime.now(tz=timezone.utc) - timedelta(days=day_num)
         date_str = date_dt.strftime("%Y-%m-%d")
         if date_str in existing_dates:
             continue   # already in BQ — skip without sleeping
+        if new_days >= MAX_NEWS_DAYS_PER_RUN:
+            logger.info(f"Reached {MAX_NEWS_DAYS_PER_RUN} new days this run; the rest continues tomorrow")
+            break
+        new_days += 1
         articles = fetch_guardian_day(date_str)
         all_articles.extend(articles)
         batch.extend(articles)
         time.sleep(0.5)   # 0.5s between NEW fetches keeps under Guardian's rate limit
 
-        days_done = DAYS_BACK_START - day_num
+        days_done = new_days
         if days_done % 7 == 0:
             logger.info(f"News progress: day {days_done}/{total_days} | total: {len(all_articles)}")
 
@@ -284,13 +294,25 @@ def run_billboard_backfill(existing_weeks: set) -> list[dict]:
     total_weeks = WEEKS_BACK_START - WEEKS_BACK_END + 1
     logger.info(f"Starting Billboard backfill: scanning {total_weeks} weeks, skipping already-collected")
     all_songs = []
-    for week_num in range(WEEKS_BACK_START, WEEKS_BACK_END - 1, -1):
+    # week_start is "today minus N weeks", so the exact date string shifts every day.
+    # Compare by ISO year-week instead, otherwise every run re-fetches the whole year.
+    def _iso(d):
+        d = datetime.strptime(str(d)[:10], "%Y-%m-%d")
+        return d.isocalendar()[:2]
+    existing_iso = {_iso(w) for w in existing_weeks}
+    new_weeks = 0
+    # Newest first, so the dashboard catches up from the present backwards.
+    for week_num in range(WEEKS_BACK_END, WEEKS_BACK_START + 1):
         week_start = datetime.now(tz=timezone.utc) - timedelta(weeks=week_num)
         date_str   = week_start.strftime("%Y-%m-%d")
         week_index = WEEKS_BACK_START - week_num + 1
-        if date_str in existing_weeks:
+        if _iso(date_str) in existing_iso:
             logger.info(f"Week {week_index}/{total_weeks}: {date_str} — already in BQ, skipping")
             continue
+        if new_weeks >= MAX_MUSIC_WEEKS_PER_RUN:
+            logger.info(f"Reached {MAX_MUSIC_WEEKS_PER_RUN} new weeks this run; the rest continues tomorrow")
+            break
+        new_weeks += 1
         logger.info(f"Fetching week {week_index}/{total_weeks}: {date_str}")
         songs = fetch_billboard_week(date_str, week_index)
         all_songs.extend(songs)

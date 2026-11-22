@@ -100,7 +100,7 @@ def ingest_librosa():
     _run("ingestion/audio_features_librosa.py", "M6-librosa")
 
 
-@task(name="M6b · Historical refresh (news + charts)", retries=1, retry_delay_seconds=120)
+@task(name="M6b · Historical refresh (news + charts)", retries=0, timeout_seconds=5400)
 def run_historical_refresh():
     _run("ingestion/historical_backfill.py", "M6b-historical")
 
